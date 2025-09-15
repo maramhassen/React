@@ -1,0 +1,39 @@
+name: CI/CD Pipeline
+
+# Déclenche le pipeline à chaque push sur main
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-test-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Récupérer le code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Installer Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # 3. Installer les dépendances
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Lancer les tests
+      - name: Run tests
+        run: npm test
+
+      # 5. Build du projet
+      - name: Build project
+        run: npm run build
+
+      # 6. Construire l'image Docker
+      - name: Build Docker image
+        run: docker build -t app .
