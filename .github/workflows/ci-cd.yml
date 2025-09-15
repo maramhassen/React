@@ -1,10 +1,10 @@
 name: CI/CD Pipeline
 
-# Déclenche le pipeline à chaque push sur main
+# Déclenche le pipeline à chaque push sur site-ecommerce
 on:
   push:
     branches:
-      - main
+      - site-ecommerce
   pull_request:
 
 jobs:
